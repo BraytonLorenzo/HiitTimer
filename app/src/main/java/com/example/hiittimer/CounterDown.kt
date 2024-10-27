@@ -47,7 +47,6 @@ class CounterDown(
                         startTimer(workTime)
                     } else {
                         isRunning = false
-                        onFinish()
                     }
                 }
             }

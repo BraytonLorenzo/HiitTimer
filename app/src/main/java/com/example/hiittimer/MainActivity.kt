@@ -10,9 +10,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,11 +22,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.hiittimer.ui.theme.HiitTimerTheme
 import java.util.Scanner
+import kotlin.text.toIntOrNull
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,12 +51,18 @@ fun TabataCounter(modifier: Modifier = Modifier) {
     var timeLeft by remember { mutableStateOf(0L) }
     var isWorkTime by remember { mutableStateOf(true) }
     var isRunning by remember { mutableStateOf(false) }
+    var sets by remember { mutableStateOf("") }
+    var setsInt by remember { mutableStateOf(0) }
+    var muchWorkTime by remember { mutableStateOf("") }
+    var muchWorkTimeInt by remember { mutableStateOf(0) }
+    var muchRestTime by remember { mutableStateOf("") }
+    var muchRestTimeInt by remember { mutableStateOf(0) }
 
     val counterDown = remember {
         CounterDown(
-            workTime = 20, // Tiempo de trabajo en segundos
-            restTime = 10, // Tiempo de descanso en segundos
-            numSeries = 8, // Número de series
+            workTime = muchWorkTimeInt,
+            restTime = muchRestTimeInt,
+            numSeries = setsInt,
             onTick = { time, work ->
                 timeLeft = time
                 isWorkTime = work
@@ -62,8 +72,6 @@ fun TabataCounter(modifier: Modifier = Modifier) {
             }
         )
     }
-    //Scanner sc = new Scanner(System.in);
-    //int i = sc.nextInt();
 
     Box(modifier = Modifier) {
         Column(
@@ -84,8 +92,23 @@ fun TabataCounter(modifier: Modifier = Modifier) {
                         )
                     }
                     Row {
+                        TextField(
+                            value = sets,
+                            onValueChange = { newValue ->
+                                sets = newValue
+                                setsInt = newValue.toIntOrNull() ?: 0
+                            },
+                            label = { Text("Sets") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                        )
+                    }
+                    Row {
                         Text(
-                            text = "6",
+                            text = if (isRunning) {
+                                if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
+                            } else {
+                                "Presiona para iniciar"
+                            },
                             fontSize = 30.sp
                         )
                     }
@@ -104,13 +127,14 @@ fun TabataCounter(modifier: Modifier = Modifier) {
                         )
                     }
                     Row {
-                        Text(
-                            text = if (isRunning) {
-                                if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
-                            } else {
-                                "Presiona para iniciar"
+                        TextField(
+                            value = muchWorkTime,
+                            onValueChange = { newValue ->
+                                muchWorkTime = newValue
+                                muchWorkTimeInt = newValue.toIntOrNull() ?: 0
                             },
-                            fontSize = 30.sp
+                            label = { Text("tiempodetrabajo") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                         )
                     }
                 }
@@ -128,13 +152,14 @@ fun TabataCounter(modifier: Modifier = Modifier) {
                         )
                     }
                     Row {
-                        Text(
-                            text = if (isRunning) {
-                                if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
-                            } else {
-                                "Presiona para iniciar"
+                        TextField(
+                            value = muchRestTime,
+                            onValueChange = { newValue ->
+                                muchRestTime = newValue
+                                muchRestTimeInt = newValue.toIntOrNull() ?: 0
                             },
-                            fontSize = 30.sp
+                            label = { Text("tiempodedescanso") },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                         )
                     }
                 }
@@ -145,6 +170,9 @@ fun TabataCounter(modifier: Modifier = Modifier) {
                         counterDown.pause()
                         isRunning = false
                     } else {
+                        counterDown.numSeries = setsInt
+                        counterDown.workTime = muchWorkTimeInt
+                        counterDown.restTime = muchRestTimeInt
                         counterDown.start()
                         isRunning = true
                     }
@@ -155,10 +183,8 @@ fun TabataCounter(modifier: Modifier = Modifier) {
                     )
                 }
             }
-
         }
     }
-
 }
 
 @Preview(showBackground = true)
