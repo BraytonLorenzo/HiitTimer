@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.hiittimer.ui.theme.HiitTimerTheme
 import java.util.Scanner
 
@@ -62,56 +64,71 @@ fun TabataCounter(modifier: Modifier = Modifier) {
     //Scanner sc = new Scanner(System.in);
     //int i = sc.nextInt();
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Row {
-            Text(
-                text = if (isRunning) {
-                    if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
-                } else {
-                    "Presiona para iniciar"
-                },
-                modifier = modifier
-            )
-        }
-        Row {
-            Text(
-                text = if (isRunning) {
-                    if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
-                } else {
-                    "Presiona para iniciar"
-                },
-                modifier = modifier
-            )
-        }
-        Row {
-            Text(
-                text = if (isRunning) {
-                    if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
-                } else {
-                    "Presiona para iniciar"
-                },
-                modifier = modifier
-            )
-        }
-        Row {
-            Button(onClick = {
-                if (isRunning) {
-                    counterDown.pause()
-                    isRunning = false
-                } else {
-                    counterDown.start()
-                    isRunning = true
+    Box(modifier = Modifier) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Row(modifier = Modifier.padding(16.dp)) {
+                Column {
+                    Row {
+                        Text(text = "sets")
+                    }
+                    Row {
+                        Text(text = "6")
+                    }
                 }
-            }) {
-                Text(text = if (isRunning) "Pausar" else "Iniciar")
             }
-        }
+            Row(modifier = Modifier.padding(16.dp)) {
+                Column {
+                    Row {
+                        Text(text = "Trabaja")
+                    }
+                    Row {
+                        Text(
+                            text = if (isRunning) {
+                                if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
+                            } else {
+                                "Presiona para iniciar"
+                            }
+                        )
+                    }
+                }
+            }
+            Row(modifier = Modifier.padding(16.dp)) {
+                Column {
+                    Row {
+                        Text(text = "Descanso")
+                    }
+                    Row {
+                        Text(
+                            text = if (isRunning) {
+                                if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
+                            } else {
+                                "Presiona para iniciar"
+                            }
+                        )
+                    }
+                }
+            }
+            Row(modifier = Modifier.padding(16.dp)) {
+                Button(onClick = {
+                    if (isRunning) {
+                        counterDown.pause()
+                        isRunning = false
+                    } else {
+                        counterDown.start()
+                        isRunning = true
+                    }
+                }) {
+                    Text(text = if (isRunning) "Pausar" else "Iniciar")
+                }
+            }
 
+        }
     }
+
 }
 
 @Preview(showBackground = true)
