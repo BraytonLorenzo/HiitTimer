@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -23,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -79,91 +82,99 @@ fun TabataCounter(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            Row(modifier = Modifier.padding(30.dp)) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Row {
-                        Text(
-                            text = "sets",
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        )
+            if (isRunning) {
+                if (isWorkTime) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("Trabajo", fontSize = 30.sp)
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("$timeLeft", fontSize = 30.sp)
                     }
-                    Row {
-                        TextField(
-                            value = sets,
-                            onValueChange = { newValue ->
-                                sets = newValue
-                                setsInt = newValue.toIntOrNull() ?: 0
-                            },
-                            label = { Text("Sets") },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                        )
+                } else {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("Descanso", fontSize = 30.sp)
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text("$timeLeft", fontSize = 30.sp)
                     }
-                    Row {
-                        Text(
-                            text = if (isRunning) {
-                                if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
-                            } else {
-                                "Presiona para iniciar"
-                            },
-                            fontSize = 30.sp
-                        )
+                }
+            } else {
+                Row(modifier = Modifier.padding(30.dp)) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Row {
+                            Text(
+                                text = "sets",
+                                fontSize = 20.sp,
+                                modifier = Modifier.padding(bottom = 16.dp)
+                            )
+                        }
+                        Row {
+                            TextField(
+                                value = sets,
+                                onValueChange = { newValue ->
+                                    sets = newValue
+                                    setsInt = newValue.toIntOrNull() ?: 0
+                                },
+                                label = { Text("Sets") },
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                            )
+                        }
+                    }
+                }
+                Row(modifier = Modifier.padding(30.dp)) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Row {
+                            Text(
+                                text = "Trabaja",
+                                fontSize = 20.sp,
+                                modifier = Modifier.padding(bottom = 16.dp)
+                            )
+                        }
+                        Row {
+                            TextField(
+                                value = muchWorkTime,
+                                onValueChange = { newValue ->
+                                    muchWorkTime = newValue
+                                    muchWorkTimeInt = newValue.toIntOrNull() ?: 0
+                                },
+                                label = { Text("tiempodetrabajo") },
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                            )
+                        }
+                    }
+                }
+                Row(modifier = Modifier.padding(30.dp)) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Row {
+                            Text(
+                                text = "Descanso",
+                                fontSize = 20.sp,
+                                modifier = Modifier.padding(bottom = 16.dp)
+                            )
+                        }
+                        Row {
+                            TextField(
+                                value = muchRestTime,
+                                onValueChange = { newValue ->
+                                    muchRestTime = newValue
+                                    muchRestTimeInt = newValue.toIntOrNull() ?: 0
+                                },
+                                label = { Text("tiempodedescanso") },
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                            )
+                        }
                     }
                 }
             }
-            Row(modifier = Modifier.padding(30.dp)) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Row {
-                        Text(
-                            text = "Trabaja",
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        )
-                    }
-                    Row {
-                        TextField(
-                            value = muchWorkTime,
-                            onValueChange = { newValue ->
-                                muchWorkTime = newValue
-                                muchWorkTimeInt = newValue.toIntOrNull() ?: 0
-                            },
-                            label = { Text("tiempodetrabajo") },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                        )
-                    }
-                }
-            }
-            Row(modifier = Modifier.padding(30.dp)) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Row {
-                        Text(
-                            text = "Descanso",
-                            fontSize = 20.sp,
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        )
-                    }
-                    Row {
-                        TextField(
-                            value = muchRestTime,
-                            onValueChange = { newValue ->
-                                muchRestTime = newValue
-                                muchRestTimeInt = newValue.toIntOrNull() ?: 0
-                            },
-                            label = { Text("tiempodedescanso") },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                        )
-                    }
-                }
-            }
+
+
             Row(modifier = Modifier.padding(30.dp)) {
                 Button(onClick = {
                     if (isRunning) {
