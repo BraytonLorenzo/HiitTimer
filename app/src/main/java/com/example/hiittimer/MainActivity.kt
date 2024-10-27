@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -20,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.hiittimer.ui.theme.HiitTimerTheme
+import java.util.Scanner
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,31 +59,58 @@ fun TabataCounter(modifier: Modifier = Modifier) {
             }
         )
     }
+    //Scanner sc = new Scanner(System.in);
+    //int i = sc.nextInt();
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        Text(
-            text = if (isRunning) {
-                if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
-            } else {
-                "Presiona para iniciar"
-            },
-            modifier = modifier
-        )
-        Button(onClick = {
-            if (isRunning) {
-                counterDown.pause()
-                isRunning = false
-            } else {
-                counterDown.start()
-                isRunning = true
-            }
-        }) {
-            Text(text = if (isRunning) "Pausar" else "Iniciar")
+        Row {
+            Text(
+                text = if (isRunning) {
+                    if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
+                } else {
+                    "Presiona para iniciar"
+                },
+                modifier = modifier
+            )
         }
+        Row {
+            Text(
+                text = if (isRunning) {
+                    if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
+                } else {
+                    "Presiona para iniciar"
+                },
+                modifier = modifier
+            )
+        }
+        Row {
+            Text(
+                text = if (isRunning) {
+                    if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
+                } else {
+                    "Presiona para iniciar"
+                },
+                modifier = modifier
+            )
+        }
+        Row {
+            Button(onClick = {
+                if (isRunning) {
+                    counterDown.pause()
+                    isRunning = false
+                } else {
+                    counterDown.start()
+                    isRunning = true
+                }
+            }) {
+                Text(text = if (isRunning) "Pausar" else "Iniciar")
+            }
+        }
+
     }
 }
 
