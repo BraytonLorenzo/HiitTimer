@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.hiittimer.ui.theme.HiitTimerTheme
 import java.util.Scanner
 
@@ -70,20 +71,37 @@ fun TabataCounter(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            Row(modifier = Modifier.padding(16.dp)) {
-                Column {
+            Row(modifier = Modifier.padding(30.dp)) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
                     Row {
-                        Text(text = "sets")
+                        Text(
+                            text = "sets",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
                     }
                     Row {
-                        Text(text = "6")
+                        Text(
+                            text = "6",
+                            fontSize = 30.sp
+                        )
                     }
                 }
             }
-            Row(modifier = Modifier.padding(16.dp)) {
-                Column {
+            Row(modifier = Modifier.padding(30.dp)) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
                     Row {
-                        Text(text = "Trabaja")
+                        Text(
+                            text = "Trabaja",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
                     }
                     Row {
                         Text(
@@ -91,15 +109,23 @@ fun TabataCounter(modifier: Modifier = Modifier) {
                                 if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
                             } else {
                                 "Presiona para iniciar"
-                            }
+                            },
+                            fontSize = 30.sp
                         )
                     }
                 }
             }
-            Row(modifier = Modifier.padding(16.dp)) {
-                Column {
+            Row(modifier = Modifier.padding(30.dp)) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
                     Row {
-                        Text(text = "Descanso")
+                        Text(
+                            text = "Descanso",
+                            fontSize = 20.sp,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
                     }
                     Row {
                         Text(
@@ -107,12 +133,13 @@ fun TabataCounter(modifier: Modifier = Modifier) {
                                 if (isWorkTime) "Trabajo: $timeLeft" else "Descanso: $timeLeft"
                             } else {
                                 "Presiona para iniciar"
-                            }
+                            },
+                            fontSize = 30.sp
                         )
                     }
                 }
             }
-            Row(modifier = Modifier.padding(16.dp)) {
+            Row(modifier = Modifier.padding(30.dp)) {
                 Button(onClick = {
                     if (isRunning) {
                         counterDown.pause()
@@ -122,7 +149,10 @@ fun TabataCounter(modifier: Modifier = Modifier) {
                         isRunning = true
                     }
                 }) {
-                    Text(text = if (isRunning) "Pausar" else "Iniciar")
+                    Text(
+                        text = if (isRunning) "Pausar" else "Iniciar",
+                        fontSize = 30.sp
+                    )
                 }
             }
 
