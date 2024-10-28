@@ -1,5 +1,6 @@
 package com.example.hiittimer
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -41,6 +42,7 @@ class MainActivity : ComponentActivity() {
             HiitTimerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     TabataCounter(
+                        context = this,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -50,7 +52,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TabataCounter(modifier: Modifier = Modifier) {
+fun TabataCounter(context: Context, modifier: Modifier = Modifier) {
     var timeLeft by remember { mutableStateOf(0L) }
     var isWorkTime by remember { mutableStateOf(true) }
     var isRunning by remember { mutableStateOf(false) }
@@ -63,6 +65,7 @@ fun TabataCounter(modifier: Modifier = Modifier) {
 
     val counterDown = remember {
         CounterDown(
+            context = context,
             workTime = muchWorkTimeInt,
             restTime = muchRestTimeInt,
             numSeries = setsInt,
@@ -195,13 +198,5 @@ fun TabataCounter(modifier: Modifier = Modifier) {
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HiitTimerTheme {
-        TabataCounter()
     }
 }
