@@ -192,7 +192,7 @@ fun TabataCounter(context: Context, modifier: Modifier = Modifier) {
                     }
                 }) {
                     Text(
-                        text = if (isRunning) "Pausar" else "Iniciar",
+                        text = if (isRunning) "Stop" else "Inicio",
                         fontSize = 30.sp
                     )
                 }

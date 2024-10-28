@@ -56,7 +56,6 @@ class CounterDown(
                     } else {
                         finishSound.start()
                         isRunning = false
-                        onFinish()
                     }
                 }
             }
